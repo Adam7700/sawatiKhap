@@ -1,0 +1,18 @@
+settings[
+    workspaces=4
+    templateName=letscode
+    view=workspace2
+]
+workspace 1[
+    googlechrome
+    {
+        snap = fullscreen
+        args = "--proxyservrmysecretserver:8080"
+    }
+]
+workspace 2[
+    terminal
+    {
+        snap = topleft
+    }
+]
