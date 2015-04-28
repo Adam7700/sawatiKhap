@@ -3,16 +3,15 @@ options {
 language=Java;
 }
 
-start   :   'settings[\n' option+ ']\n' workspace+;
+start   :   'settings' '[' option+ ']' workspace+;
 
-option :   ID '=' value '\n';
+option :   ID '=' value;
 
+workspace    :   'workspace' NUM '[' application+ ']';
 
-workspace    :   'workspace' NUM '[\n' application+ ']\n';
+application  :   ID '{' option+ '}';
 
-application  :   ID nl '{' nl option+ nl '}' nl;
-
-ID  :   ('a'..'z' | 'A'..'Z') ('a'..'z' | 'A'..'Z'| NUM)+;
+ID  :   ('a'..'z' | 'A'..'Z') ('a'..'z' | 'A'..'Z'| NUM | SYMBOLS)+;
 
 value   : ID | NUM | (SYMBOLS | ID | NUM)+;
 
@@ -20,8 +19,4 @@ SYMBOLS :   '&'|'*'|'^'|'%'|'_'|'-'|'#'|'"'|':';
 
 NUM     :   [0-9]+;
 
-nl      : NL | ;
-
-NL      :   '\n';
-
-WS : [ \r\t]+ { skip();};
+WS : [ \r\t\n]+ -> skip;
