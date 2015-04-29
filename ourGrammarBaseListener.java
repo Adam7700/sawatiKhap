@@ -40,12 +40,16 @@ public class ourGrammarBaseListener implements ourGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWorkspace(ourGrammarParser.WorkspaceContext ctx) { }
+	@Override public void enterWorkspace(ourGrammarParser.WorkspaceContext ctx) { 
+	    System.out.println("hello\n");
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+    
 	@Override public void exitWorkspace(ourGrammarParser.WorkspaceContext ctx) { }
 	/**
 	 * {@inheritDoc}
