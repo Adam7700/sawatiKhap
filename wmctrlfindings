@@ -1,0 +1,10 @@
+# this gets us our "fullscreen" snap (you can also use toggle and remove for the first argument
+wmctrl -r "Google Chrome" -b add,maximized_horz,maximized_vert
+
+# This moves the window somewhere g,x,y,width,height
+wmctrl -r "Google Chrome" -e 0,0,0,600,500
+
+#this gives the window title from a PID
+(wmctrl -lp | grep -i '{{PID}}.*' | awk '{ s = ""; for (i = 4; i <= NF; i++) s = s $i " "; print s }')
+
+
