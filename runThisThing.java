@@ -16,7 +16,7 @@ public class runThisThing extends ourGrammarBaseListener {
         
         ourGrammarListeners thingy = new ourGrammarListeners(parser);
         walker.walk(thingy, tree);
-
+        thingy.gramgram.close();
          
         System.out.println(tree.toStringTree(parser));
     }
