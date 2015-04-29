@@ -8,7 +8,7 @@ sabay di mai. khap!
 4. java runThisThing
 
 ##### When you want to push stuff:
-1. ./cleanup.sh
+1. ./cleanup.sh (optional)
 2. git add <any files required to be added>
 3. git commit -a
 4. git push origin master
