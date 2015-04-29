@@ -40,16 +40,12 @@ public class ourGrammarBaseListener implements ourGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWorkspace(ourGrammarParser.WorkspaceContext ctx) { 
-	    System.out.println("hello\n");
-
-	}
+	@Override public void enterWorkspace(ourGrammarParser.WorkspaceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-    
 	@Override public void exitWorkspace(ourGrammarParser.WorkspaceContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -68,6 +64,18 @@ public class ourGrammarBaseListener implements ourGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAppoption(ourGrammarParser.AppoptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAppoption(ourGrammarParser.AppoptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterValue(ourGrammarParser.ValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -75,18 +83,6 @@ public class ourGrammarBaseListener implements ourGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitValue(ourGrammarParser.ValueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterNl(ourGrammarParser.NlContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNl(ourGrammarParser.NlContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

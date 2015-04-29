@@ -48,6 +48,16 @@ public interface ourGrammarListener extends ParseTreeListener {
 	 */
 	void exitApplication(ourGrammarParser.ApplicationContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ourGrammarParser#appoption}.
+	 * @param ctx the parse tree
+	 */
+	void enterAppoption(ourGrammarParser.AppoptionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ourGrammarParser#appoption}.
+	 * @param ctx the parse tree
+	 */
+	void exitAppoption(ourGrammarParser.AppoptionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link ourGrammarParser#value}.
 	 * @param ctx the parse tree
 	 */
@@ -57,14 +67,4 @@ public interface ourGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitValue(ourGrammarParser.ValueContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ourGrammarParser#nl}.
-	 * @param ctx the parse tree
-	 */
-	void enterNl(ourGrammarParser.NlContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ourGrammarParser#nl}.
-	 * @param ctx the parse tree
-	 */
-	void exitNl(ourGrammarParser.NlContext ctx);
 }

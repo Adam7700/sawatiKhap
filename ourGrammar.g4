@@ -9,7 +9,9 @@ option :   ID '=' value;
 
 workspace    :   'workspace' NUM '[' application+ ']';
 
-application  :   ID '{' option+ '}';
+application  :   ID '{' appoption+ '}';
+
+appoption :   ID '=' value;
 
 ID  :   ('a'..'z' | 'A'..'Z') ('a'..'z' | 'A'..'Z'| NUM | SYMBOLS)+;
 
