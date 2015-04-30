@@ -71,19 +71,50 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
     	}
 		else if(ctx.children.get(0).toString().equals("snap"))
 		{
-            String dimensions = ctx.children.get(2).getText();
-            if(dimensions.equals("fullscreen")){
-                // figure out what the ending should be
-                dimensions = "20,20,200,200 ";
-            }
-            options.add("\n" + "wmctrl -r :ACTIVE: -e 0," + dimensions);
+            String actions;
+            String dimensions = ctx.children.get(2).getText().toLowerCase();
+            actions = getWmctrlActions(dimensions);
+            options.add(actions);
     	}
 		else
-		{
-            return;
-		}
+		{}
     }
-    
+
+    private String getWmctrlActions(String dimensions) {
+        String actions = "";
+        switch (dimensions){
+            case "fullscreen":
+                actions = "\nwmctrl -r :ACTIVE: -b add,maximized_horz,maximized_vert";
+                break;
+            case "topleft":
+                actions = "\nwmctrl -r :ACTIVE:  -e 0,0,0," + boundaries.getCenterX() + ",560";
+                break;
+            case "topright":
+                actions = "";
+                break;
+            case "bottomright":
+                actions = "";
+                break;
+            case "bottomleft":
+                actions = "wmctrl -r :ACTIVE:  -e 0,0,612,960,560";
+                break;
+            case "top":
+                actions = "";
+                break;
+            case "bottom":
+                actions = "";
+                break;
+            case "left":
+                actions = "";
+                break;
+            case "right":
+                actions = "";
+                break;
+        }
+        return actions;
+    }
+
+
     @Override public void exitApplication(ourGrammarParser.ApplicationContext ctx) {
 
     	for(String items:options){
@@ -94,6 +125,14 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
 				e.printStackTrace();
 			}
     	}
+        if(options.size() == 0){ // TODO: this was supposed to help if there were no args, but it's flawed...
+            try {
+                gramgram.write(" &\n");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     	options.clear();
     }
    
