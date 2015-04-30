@@ -10,7 +10,7 @@ workspace 1[
     }
 ]
 workspace 2[
-    terminal
+    gnome-terminal
     {
         snap = topleft
     }

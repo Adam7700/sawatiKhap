@@ -33,3 +33,43 @@ wmctrl -v -i -r $X -e 20,20,20,200,200
 firefox  &
 wmctrl -v -r :ACTIVE: -e 20,20,20,200,200
 
+
+
+dimensions:
+
+    fullscreen =  wmctrl -r :ACTIVE: -b add,maximized_horz,maximized_vert
+
+    Left {
+        wmctrl -r :ACTIVE:  -e 0,0,0,960,0 # (960 comes from getCenterX)
+        wmctrl -r :ACTIVE: -b add,maximized_vert
+    }
+
+    Right {
+        wmctrl -r :ACTIVE:  -e 0,960,0,960,0 # (960 comes from getCenterX)
+        wmctrl -r :ACTIVE: -b add,maximized_vert
+    }
+
+    Top {
+        wmctrl -r :ACTIVE:  -e 0,0,0,0,560 # (560 needs to be calculated)
+        wmctrl -r :ACTIVE: -b add,maximized_horz
+    }
+    Bottom {
+        wmctrl -r :ACTIVE:  -e 0,0,612,0,560 # (560 needs to be calculated)
+        wmctrl -r :ACTIVE: -b add,maximized_horz
+    }
+
+    topleft {
+        wmctrl -r :ACTIVE:  -e 0,0,0,960,560
+    }
+
+    bottomleft{
+        wmctrl -r :ACTIVE:  -e 0,0,612,960,560
+    }
+
+    topright{
+        wmctrl -r :ACTIVE:  -e 0,960,0,960,560
+    }
+
+    bottomright{
+        wmctrl -r :ACTIVE:  -e 0,960,612,960,560
+    }
