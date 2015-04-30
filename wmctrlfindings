@@ -8,3 +8,28 @@ wmctrl -r "Google Chrome" -e 0,0,0,600,500
 (wmctrl -lp | grep -i '{{PID}}.*' | awk '{ s = ""; for (i = 4; i <= NF; i++) s = s $i " "; print s }')
 
 
+# toggles fullscreen by window ID
+wmctrl -i -r $(wmctrl -lp | grep -i '4255.*' | awk '{ print $1 }') -b add,fullscreen
+
+# set windows id to variable X
+X=$(wmctrl -lp | grep -i '16157.*' | awk '{ print $1 }')
+
+# for some reason the -v flag has to be before the -i arg to work?
+
+
+#working thing
+chromium-browser  &
+
+PID=$!
+
+sleep 3
+
+X=$(wmctrl -lp | grep -i $(echo $PID).* | awk '{ print $1 }')
+
+wmctrl -v -i -r $X -e 20,20,20,200,200
+
+
+# this might be the easiest approach
+firefox  &
+wmctrl -v -r :ACTIVE: -e 20,20,20,200,200
+

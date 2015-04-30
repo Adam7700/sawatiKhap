@@ -1,6 +1,12 @@
 # sawatiKhap
 sabay di mai. khap!
 
+### Dependencies
+you have to be using a x window manager
+wmctrl
+bash
+
+
 ### Workflow:
 1. git pull origin master
 2. antlr4 ourGrammar.g4
