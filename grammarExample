@@ -2,21 +2,36 @@ settings[
     templateName=letscode
     view=workspace2
 ]
+
 workspace 1[
-    emacs
+    gnome-terminal
     {
-        snap = fullscreen
+        snap = topleft
     }
-]
-workspace 2[
+    gnome-terminal
+    {
+        snap = topright
+    }
     gnome-terminal
     {
         snap = bottomleft
     }
-    gedit
+    gnome-terminal
     {
         snap = bottomright
-        args = test
     }
 ]
+workspace 3[
+    gnome-terminal
+    {
+        snap = fullscreen
+    }
+]
+workspace 4[
+    gnome-terminal
+    {
+        snap = fullscreen
+    }
+]
+
 

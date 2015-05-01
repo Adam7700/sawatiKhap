@@ -1,6 +1,23 @@
 # sawatiKhap
 sabay di mai. khap!
 
+### How to run
+1. java runThisThing < grammarExample
+2. ./sawat.sh
+
+
+### valid Snap Args
+* fullscreen
+* top
+* bottom
+* left
+* right
+* topleft
+* topright
+* bottomleft
+* bottomright
+
+
 ### Dependencies
 you have to be using a x window manager
 wmctrl
@@ -18,3 +35,9 @@ bash
 2. git add <any files required to be added>
 3. git commit -a
 4. git push origin master
+
+
+### TODO
+1. use template name for the bash script file name
+2. make a more sophisticated args grammar
+3.

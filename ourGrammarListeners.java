@@ -1,31 +1,37 @@
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
-
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 import static java.awt.GraphicsEnvironment.*;
 
 public class ourGrammarListeners extends ourGrammarBaseListener {
     ourGrammarParser parser;
-	ArrayList<String> options = new ArrayList<String>();
+	ArrayList<String> options = new ArrayList<>();
 	File fout = new File("sawat.sh");
 	BufferedWriter gramgram;
 	FileOutputStream fos;
-    public int height, width, xOffset=0, yOffset=0;
+
+    public int xOffset=0, yOffset=0;
     private Rectangle boundaries = getLocalGraphicsEnvironment().getMaximumWindowBounds();
+    public int maxWidth = (int) boundaries.getMaxX();
+    public int maxHeight = (int) boundaries.getMaxY();
+
+    public int halfWidth = (int) boundaries.getCenterX();
+    public int halfHeight = (int) boundaries.getCenterY()- 50;
+    public int halfwayHeight = (int) boundaries.getCenterY(); //This is because the windows were too tall, but the midway point was correct
+
+
     public String sleepString = "\nsleep 1\n";
 
-
+    /* Constructor */
     public ourGrammarListeners(ourGrammarParser parser){
     	this.parser = parser;
     	try {
 			fos = new FileOutputStream(fout);
 			gramgram = new BufferedWriter(new OutputStreamWriter(fos));
 		} catch (FileNotFoundException e) {
-		}
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -33,18 +39,12 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
     	// switched wmctrl to a different workspace
         	//System.out.print(ctx.children.get(0));
             setViewport(ctx.children.get(1).toString());
-        	/*try {
-    			gramgram.write("\nworkspace " + ctx.children.get(1)+"\n" );
-    			//gramgram.close();
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		}*/
-    	
     }
 
     private void setViewport(String workspaceNum) {
         try {
             gramgram.write("###### Start Workspace " + workspaceNum + " ######\n");
+            gramgram.write(sleepString);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,21 +59,21 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
                 break;
             case "2":
                 try {
-                    gramgram.write("wmctrl -o "+ (int) boundaries.getMaxX()+",0\n");
+                    gramgram.write("wmctrl -o "+ maxWidth+",0\n");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 break;
             case "3":
                 try {
-                    gramgram.write("wmctrl -o"+ " 0,"+ (int)boundaries.getMaxY()+"\n");
+                    gramgram.write("wmctrl -o"+ " 0,"+ maxHeight+"\n");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 break;
             case "4":
                 try {
-                    gramgram.write("wmctrl -o " + boundaries.getMaxX() + "," + boundaries.getMaxY() + "\n");
+                    gramgram.write("wmctrl -o " + maxWidth + "," + maxHeight + "\n");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -93,7 +93,8 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
 		}
     }
  
-    @Override public void enterAppoption(ourGrammarParser.AppoptionContext ctx) {
+    @Override
+    public void enterAppoption(ourGrammarParser.AppoptionContext ctx) {
     	if(ctx.children.get(0).toString().equals("args"))
 		{
     		options.add(0, " " + ctx.children.get(2).getText() + " &" + sleepString);
@@ -115,51 +116,50 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
                 break;
 
             case "topleft":
-                actions = "wmctrl -r :ACTIVE:  -e 0," + xOffset + "," + yOffset + "," + (int) boundaries.getCenterX() + "," + (int) boundaries.getCenterY()+"\n";
+                actions = "wmctrl -r :ACTIVE:  -e 0," + xOffset + "," + yOffset + "," + halfWidth + "," + halfHeight+"\n";
                 break;
 
             case "topright":
-                actions = "wmctrl -r :ACTIVE:  -e 0," + (xOffset + (int) boundaries.getCenterX()) + "," + yOffset +"," + (int) boundaries.getCenterX() + "," + (int) boundaries.getCenterY() + "\n";
+                actions = "wmctrl -r :ACTIVE:  -e 0," + (xOffset + halfWidth) + "," + yOffset +"," + halfWidth + "," + halfHeight + "\n";
                 break;
 
             case "bottomright":
-                actions = "wmctrl -r :ACTIVE:  -e 0," + (xOffset + (int) boundaries.getCenterX()) + "," + (yOffset+(int) boundaries.getCenterY()) +"," + (int) boundaries.getCenterX() + "," + (int) boundaries.getCenterY() + "\n";
+                actions = "wmctrl -r :ACTIVE:  -e 0," + (xOffset + halfWidth) + "," + (yOffset+halfwayHeight) +"," + halfWidth + "," + halfHeight + "\n";
                 break;
 
             case "bottomleft":
-                actions = "wmctrl -r :ACTIVE:  -e 0," + (xOffset) + "," + (yOffset+(int) boundaries.getCenterY()) +"," + (int) boundaries.getCenterX() + "," + (int) boundaries.getCenterY() + "\n";
+                actions = "wmctrl -r :ACTIVE:  -e 0," + (xOffset) + "," + (yOffset+halfwayHeight) +"," + halfWidth + "," + halfHeight + "\n";
                 break;
 
             case "top":
-                actions = "wmctrl -r :ACTIVE:  -e 0," + xOffset + "," + yOffset +"," + 0 + "," + (int) boundaries.getCenterY() +
+                actions = "wmctrl -r :ACTIVE:  -e 0," + xOffset + "," + yOffset +"," + 0 + "," + halfHeight +
                             "\nwmctrl -r :ACTIVE: -b add,maximized_horz" + "\n";
                 break;
 
             case "bottom":
-                actions = "wmctrl -r :ACTIVE:  -e 0," + xOffset + "," + (yOffset+(int) boundaries.getCenterY()) +"," + 0 + "," + (int) boundaries.getCenterY() +
+                actions = "wmctrl -r :ACTIVE:  -e 0," + xOffset + "," + (yOffset+halfwayHeight) +"," + 0 + "," + halfHeight +
                             "\nwmctrl -r :ACTIVE: -b add,maximized_horz" + "\n";
                 break;
-
             case "left":
-                actions = "wmctrl -r :ACTIVE:  -e 0," + xOffset + "," + yOffset +"," + (int) boundaries.getCenterX() + "," + 0 +
+                actions = "wmctrl -r :ACTIVE:  -e 0," + xOffset + "," + yOffset +"," + halfWidth + "," + 0 +
                             "\nwmctrl -r :ACTIVE: -b add,maximized_vert" + "\n";
                 break;
-
             case "right":
-                actions = "wmctrl -r :ACTIVE:  -e 0," + (xOffset + (int) boundaries.getCenterX()) + "," + yOffset +"," + (int) boundaries.getCenterX() + "," + 0 +
-                            "wmctrl -r :ACTIVE: -b add,maximized_vert" + "\n";
+                actions = "wmctrl -r :ACTIVE:  -e 0," + (xOffset + halfWidth) + "," + yOffset +"," + halfWidth + "," + 0 +
+                            "\nwmctrl -r :ACTIVE: -b add,maximized_vert" + "\n";
                 break;
         }
         return actions;
     }
 
 
-    @Override public void exitApplication(ourGrammarParser.ApplicationContext ctx) {
+    @Override
+    public void exitApplication(ourGrammarParser.ApplicationContext ctx) {
+        // Check to see if wmctrl is the first thing. If it is, that means there were no args
     	if(options.get(0).contains("wmctrl")){
             try {
                 gramgram.write(" &" + sleepString);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -169,7 +169,6 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
     		try {
 				gramgram.write(items);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	}
@@ -177,17 +176,16 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
         try {
             gramgram.write("\n");
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
     }
    
-    @Override public void exitWorkspace(ourGrammarParser.WorkspaceContext ctx) { 
+    @Override
+    public void exitWorkspace(ourGrammarParser.WorkspaceContext ctx) {
     	try {
 			gramgram.write("\n");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
