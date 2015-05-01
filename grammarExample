@@ -3,15 +3,20 @@ settings[
     view=workspace2
 ]
 workspace 1[
-    googlechrome
+    emacs
     {
         snap = fullscreen
-        args = --proxyservrmysecretserver:8080
     }
 ]
 workspace 2[
     gnome-terminal
     {
-        snap = topleft
+        snap = bottomleft
+    }
+    gedit
+    {
+        snap = bottomright
+        args = test
     }
 ]
+
