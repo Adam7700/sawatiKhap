@@ -1,6 +1,6 @@
 grammar ourGrammar;
 options {
-language=Java;
+    language=Java;
 }
 
 start   :   'settings' '[' option+ ']' workspace+;

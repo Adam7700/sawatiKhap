@@ -7,7 +7,7 @@ import static java.awt.GraphicsEnvironment.*;
 public class ourGrammarListeners extends ourGrammarBaseListener {
     ourGrammarParser parser;
 	ArrayList<String> options = new ArrayList<>();
-	File fout = new File("sawat.sh");
+    File fout;
 	BufferedWriter gramgram;
 	FileOutputStream fos;
 
@@ -20,18 +20,13 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
     public int halfHeight = (int) boundaries.getCenterY()- 50;
     public int halfwayHeight = (int) boundaries.getCenterY(); //This is because the windows were too tall, but the midway point was correct
 
-
+    public String finalView = "";
     public String sleepString = "\nsleep 1\n";
+    public String filename;
 
     /* Constructor */
     public ourGrammarListeners(ourGrammarParser parser){
     	this.parser = parser;
-    	try {
-			fos = new FileOutputStream(fout);
-			gramgram = new BufferedWriter(new OutputStreamWriter(fos));
-		} catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -43,7 +38,7 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
 
     private void setViewport(String workspaceNum) {
         try {
-            gramgram.write("###### Start Workspace " + workspaceNum + " ######\n");
+            gramgram.write("###### Start Workspace " + workspaceNum + " ######");
             gramgram.write(sleepString);
         } catch (IOException e) {
             e.printStackTrace();
@@ -180,7 +175,46 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
         }
 
     }
-   
+    @Override
+    public void enterOption(ourGrammarParser.OptionContext ctx) {
+        if (ctx.ID().getText().equals("templateName")){
+            filename = ctx.value().getText();
+            fout = new File(filename);
+            fout.setExecutable(true);
+            try {
+                fos = new FileOutputStream(fout);
+                gramgram = new BufferedWriter(new OutputStreamWriter(fos));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        if (ctx.ID().getText().equals("view")){
+            setFinalView(ctx.value().getText());
+        }
+
+    }
+
+    private void setFinalView(String workspace) {
+        switch (workspace) {
+            case "workspace1":
+                finalView = "wmctrl -o 0,0\n";
+                break;
+            case "workspace2":
+                finalView = "wmctrl -o "+ maxWidth+",0\n";
+                break;
+            case "workspace3":
+                finalView = "wmctrl -o"+ " 0,"+ maxHeight+"\n";
+                break;
+            case "workspace4":
+                finalView = "wmctrl -o " + maxWidth + "," + maxHeight + "\n";
+                break;
+        }
+    }
+
+    // Exit start
+    // write out the final view
+
+
     @Override
     public void exitWorkspace(ourGrammarParser.WorkspaceContext ctx) {
     	try {
@@ -189,6 +223,18 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
 			e.printStackTrace();
 		}
     }
-  
-    
+
+    @Override
+    public void exitStart(ourGrammarParser.StartContext ctx) {
+        try {
+            gramgram.write("###### Switch to view setting ######");
+            gramgram.write(sleepString);
+            gramgram.write(finalView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

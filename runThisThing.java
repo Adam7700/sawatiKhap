@@ -1,6 +1,8 @@
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
+import java.io.IOException;
+
 
 public class runThisThing extends ourGrammarBaseListener {
     public static void main(String[] args) throws Exception {
@@ -17,7 +19,11 @@ public class runThisThing extends ourGrammarBaseListener {
         ourGrammarListeners thingy = new ourGrammarListeners(parser);
         walker.walk(thingy, tree);
         thingy.gramgram.close();
-         
+        try {
+            Process p = new ProcessBuilder("sh", thingy.filename).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println(tree.toStringTree(parser));
     }
 

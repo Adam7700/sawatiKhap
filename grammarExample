@@ -21,10 +21,25 @@ workspace 1[
         snap = bottomright
     }
 ]
+
+workspace 2[
+    gnome-terminal
+    {
+        snap = left
+    }
+    gnome-terminal
+    {
+        snap = right
+    }
+]
 workspace 3[
     gnome-terminal
     {
-        snap = fullscreen
+        snap = bottom
+    }
+    gnome-terminal
+    {
+        snap = top
     }
 ]
 workspace 4[
