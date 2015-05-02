@@ -3,21 +3,23 @@ options {
     language=Java;
 }
 
-start   :   'settings' '[' option+ ']' workspace+;
+start   :   'settings' '[' option+ ']' workspace*;
 
 option :   ID '=' value;
 
 workspace    :   'workspace' NUM '[' application+ ']';
 
-application  :   ID '{' appoption+ '}';
+application  :   ID '{' appoption* '}';
 
-appoption :   ID '=' value;
+appoption :   ID '=' appvalue;
 
 ID  :   ('a'..'z' | 'A'..'Z') ('a'..'z' | 'A'..'Z'| NUM | SYMBOLS)+;
 
 value   : ID | NUM | (SYMBOLS | ID | NUM)+;
 
-SYMBOLS :   '&'|'*'|'^'|'%'|'_'|'-'|'#'|'"'|':';
+appvalue   : '\'' (~'\'')* '\'' ;
+
+SYMBOLS :   '/'|'&'|'*'|'^'|'%'|'_'|'-'|'#'|'"'|':'|'.'|',';
 
 NUM     :   [0-9]+;
 

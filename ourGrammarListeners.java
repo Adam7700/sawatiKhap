@@ -32,8 +32,7 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
     @Override
     public void enterWorkspace(ourGrammarParser.WorkspaceContext ctx){
     	// switched wmctrl to a different workspace
-        	//System.out.print(ctx.children.get(0));
-            setViewport(ctx.children.get(1).toString());
+        setViewport(ctx.children.get(1).toString());
     }
 
     private void setViewport(String workspaceNum) {
@@ -78,7 +77,6 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
 
     @Override 
     public void enterApplication(ourGrammarParser.ApplicationContext ctx) {
-    	//System.out.print(ctx.children.get(0));
     	try {
 			gramgram.write("\n###### Start Application ######\n");
 			gramgram.write(ctx.children.get(0).toString());
@@ -92,7 +90,17 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
     public void enterAppoption(ourGrammarParser.AppoptionContext ctx) {
     	if(ctx.children.get(0).toString().equals("args"))
 		{
-    		options.add(0, " " + ctx.children.get(2).getText() + " &" + sleepString);
+            //gets the string without the qoutes
+            String appvalue = ctx.appvalue().getText().substring(1, ctx.appvalue().getText().length() - 1);
+
+            //split on comma seperated commands
+            String[] splitAppvalue = appvalue.split(",");
+
+            String args = "";
+            for (int i = 0; i < splitAppvalue.length; i++) {
+                args = args.concat(splitAppvalue[i]) + " ";
+            }
+            options.add(0, " " + args + " &" + sleepString);
     	}
 		else if(ctx.children.get(0).toString().equals("snap"))
 		{
@@ -104,7 +112,9 @@ public class ourGrammarListeners extends ourGrammarBaseListener {
     }
 
     private String getWmctrlActions(String dimensions) {
+        dimensions = dimensions.substring(1,dimensions.length()-1);
         String actions = "";
+
         switch (dimensions){
             case "fullscreen":
                 actions = "wmctrl -r :ACTIVE: -b add,maximized_horz,maximized_vert";

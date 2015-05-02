@@ -67,4 +67,14 @@ public interface ourGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitValue(ourGrammarParser.ValueContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ourGrammarParser#appvalue}.
+	 * @param ctx the parse tree
+	 */
+	void enterAppvalue(ourGrammarParser.AppvalueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ourGrammarParser#appvalue}.
+	 * @param ctx the parse tree
+	 */
+	void exitAppvalue(ourGrammarParser.AppvalueContext ctx);
 }

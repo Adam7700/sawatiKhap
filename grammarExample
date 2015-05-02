@@ -1,51 +1,56 @@
 settings[
-    templateName=letscode
+    templateName=letscode.sh
     view=workspace2
 ]
 
-workspace 1[
+workspace 1
+[
     gnome-terminal
     {
-        snap = topleft
+        snap = 'topleft'
     }
     gnome-terminal
     {
-        snap = topright
+        snap = 'topright'
     }
     gnome-terminal
     {
-        snap = bottomleft
+        snap = 'bottomleft'
     }
     gnome-terminal
     {
-        snap = bottomright
+        snap = 'bottomright'
     }
 ]
 
-workspace 2[
+workspace 2
+[
     gnome-terminal
     {
-        snap = left
+        snap = 'left'
     }
     gnome-terminal
     {
-        snap = right
-    }
-]
-workspace 3[
-    gnome-terminal
-    {
-        snap = bottom
-    }
-    gnome-terminal
-    {
-        snap = top
+        snap = 'right'
     }
 ]
-workspace 4[
+workspace 3
+[
     gnome-terminal
     {
-        snap = fullscreen
+        snap = 'bottom'
+    }
+    gnome-terminal
+    {
+        snap = 'top'
+    }
+]
+workspace 4
+[
+    chromium-browser
+    {
+	    args = '--incognito, --no-proxy-server,'
+        snap = 'fullscreen'
     }
 ]
 

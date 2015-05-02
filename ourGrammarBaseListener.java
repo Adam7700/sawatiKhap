@@ -83,6 +83,18 @@ public class ourGrammarBaseListener implements ourGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitValue(ourGrammarParser.ValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAppvalue(ourGrammarParser.AppvalueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAppvalue(ourGrammarParser.AppvalueContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
