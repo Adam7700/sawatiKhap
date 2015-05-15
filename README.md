@@ -28,7 +28,7 @@ Example:
 
     chromium-browser
     {
-        args = "--incognito, --no-proxy-server"
+        args = "--incognito, --no-proxy-server,"
         snap = "fullscreen"
     }
 #### Valid snap commands
@@ -43,8 +43,8 @@ Example:
     * bottomright
 
 ### Dependencies
-    1. Be using a x window manager
-    2. Have wmctrl installed
+    1. Use an x window manager
+    2. Wmctrl
     3. Bash
 
 ### Workflow:
