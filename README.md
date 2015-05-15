@@ -14,7 +14,7 @@ regardless of what task is at hand.
 ### How to run
 Once compiled, you can run our tool in two easy step:
 
-    1. java runThisThing < \<filewithourlangauge\>
+    1. java runThisThing <filewithourlangauge>
     2. Watch the magic!
 
 ### Use Cases
@@ -51,11 +51,11 @@ Example:
     1. git pull origin master
     2. antlr4 ourGrammar.g4
     3. javac *.java
-    4. java runThisThing < \<filename\> 
+    4. java runThisThing <filename> 
 
 #### When you want to push stuff:
     1. ./cleanup.sh (optional)
-    2. git add \<any files required to be added\>
+    2. git add <any files required to be added>
     3. git commit -a
     4. git push origin master
 
